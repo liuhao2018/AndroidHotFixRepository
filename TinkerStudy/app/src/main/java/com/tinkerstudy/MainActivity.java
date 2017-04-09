@@ -3,6 +3,7 @@ package com.tinkerstudy;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,19 +15,20 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textView;
 
+    public static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.info);
 
-        textView.setText("fix......");
+//        Log.d(TAG,"此时程序会崩溃，因为布局文件中没有给textview设置id");
+//
+//        textView.setText("正常发布的版本");
 
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/patch_signed_7zip.apk");
+        Log.d(TAG,"修改了布局文件，给textview设置了id,正常实例化控件");
 
-        if(file.exists()){
-            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(),file.getAbsolutePath());
-        }
-
+        textView.setText("bug修复了");
     }
 }

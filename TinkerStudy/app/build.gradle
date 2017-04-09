@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'test0406'
             keyPassword 'lh941120'
-            storeFile file('C:/Users/Administrator/Desktop/TinkerStudy/app/test0406.jks')
+            storeFile file('./test0406.jks')
             storePassword 'lh941120'
         }
     }
@@ -22,7 +22,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.config
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,20 +39,12 @@ dependencies {
     provided 'com.tencent.tinker:tinker-android-anno:1.7.7'
     //tinker's main Android lib
     compile 'com.tencent.tinker:tinker-android-lib:1.7.7'
+
+    compile "com.android.support:multidex:1.0.1"
     testCompile 'junit:junit:4.12'
 }
 
-def gitSha() {
-    try {
-        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
-        if (gitRev == null) {
-            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-        }
-        return gitRev
-    } catch (Exception e) {
-        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-    }
-}
+
 
 
 
@@ -69,11 +61,11 @@ ext {
 
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-release-0409-00-14-44.apk"    //这个是你出现bug的apk完整名称，app/build/bakApk目录下
+    tinkerOldApkPath = "${bakPath}/app-release-0409-10-22-21.apk"    //这个是你出现bug的apk完整名称，app/build/bakApk目录下
     //proguard mapping file to build patch apk   //暂未开启混淆，不用管
-    tinkerApplyMappingPath = "${bakPath}/app-debug-1018-17-32-47-mapping.txt"
+    tinkerApplyMappingPath = "${bakPath}/app-release-0409-10-22-11-mapping.txt"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-1018-17-32-47-R.txt"   //如果你修复了res文件，需要指定你bug版本的R.txt文件
+    tinkerApplyResourcePath = "${bakPath}/app-release-0409-10-22-11-R.txt"   //如果你修复了res文件，需要指定你bug版本的R.txt文件
 
     //only use for build all flavor, if not, just ignore this field
     tinkerBuildFlavorDirectory = "${bakPath}/app-1018-17-32-47"
